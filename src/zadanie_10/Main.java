@@ -4,7 +4,7 @@ public class Main {
   public static void main(String[] args) {
     TaskTracker tracker = new TaskTracker();
 
-    System.out.println("===Возможности TaskTracker ===\n");
+    System.out.println("~ Возможности TaskTracker ~\n");
 
     System.out.println("1. Добавление задач:");
     tracker.addTask("Посетить дейлик");
