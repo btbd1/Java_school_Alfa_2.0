@@ -1,11 +1,9 @@
 package zadanie_9;
 
 import com.github.lalyos.jfiglet.FigletFont;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 import net.datafaker.Faker;
-
 import java.util.Random;
+
 public class CompanyLogoGenerator {
 
   // Массив фамилий для первой части логотипа
