@@ -14,6 +14,8 @@ public class CompanyLogoGenerator {
       "Richy"
   };
 
+  private static final Random random = new Random();
+
   public static void main(String[] args) throws Exception {
 
     // Генерация логотипа компании
@@ -34,7 +36,6 @@ public class CompanyLogoGenerator {
 
   // метод получения случайной фамилии из массива
   private static String getRandomSurname() {
-    Random random = new Random();
     int index = random.nextInt(SURNAMES.length);
     return SURNAMES[index];
   }
