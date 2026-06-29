@@ -1,4 +1,4 @@
-package ru.alfabank.homework11;
+package zadanie_11;
 
 public class CoffeeMachine {
 
