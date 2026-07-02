@@ -17,7 +17,7 @@ public class CoffeeMachine {
   };
 
   public int calculateCups (int ml, int cupCapacity){
-    return cupCapacity / ml;
+    return ml / cupCapacity;
   };
 
   public void printCoffeeName (String coffeeName){
