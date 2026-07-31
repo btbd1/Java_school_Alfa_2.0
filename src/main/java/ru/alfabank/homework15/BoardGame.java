@@ -3,15 +3,13 @@ package main.java.ru.alfabank.homework15;
 public class BoardGame {
   private String name;
   private int minAge;
-  private double rentalCost;
+  private int rentalCost;
   private boolean rented;
 
-  public BoardGame(String name, int minAge, double rentalCost) {
+  public BoardGame(String name, int minAge, int rentalCost) {
     validateName(name);
     validateMinAge(minAge);
     validateRentalCost(rentalCost);
-
-
 
     this.name = name;
     this.minAge = minAge;
@@ -44,9 +42,10 @@ public class BoardGame {
   public int getMinAge() {
     return minAge;
   }
-  public double getRentalCost() {
+  public int getRentalCost() {
     return rentalCost;
   }
+
   public boolean isRented() {
     return rented;
   }

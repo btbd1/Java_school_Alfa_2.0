@@ -21,7 +21,7 @@ public class GameRental {
 
   public BoardGame findGame(String name) {
     for (BoardGame game : games) {
-      if (game.getName().equals(name)) {
+      if (game.getName().equalsIgnoreCase(name)) {
         return game;
       }
     }
@@ -63,7 +63,7 @@ public class GameRental {
     if (days <= 0) {
       throw new IllegalArgumentException("Количество дней должно быть положительным");
     }
-    return (int) (game.getRentalCost() * days);
+    return (game.getRentalCost() * days);
   }
 
   public void reset() {

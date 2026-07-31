@@ -14,25 +14,29 @@ public class GameCatalogTest {
 
   private GameRental rental;
 
+  // создание нового объекта для теста
   @BeforeEach
   void init() {
     rental = new GameRental();
   }
 
+  // проверка - каталог создается пустым
   @Test
   void constructor_createsEmptyCatalog() {
     assertNotNull(rental);
   }
 
+  // проверка - можно добавить игру в каталог
   @Test
   void addGame_withValidGame_addsGameToCatalog() {
-    BoardGame game = new BoardGame("Monopoly", 8, 100.0);
+    BoardGame game = new BoardGame("Monopoly", 8, 100);
     rental.addGame(game);
   }
 
+  // проверка - findGame() находит игру по названию, если она существует
   @Test
   void findGameByName_existingGame_returnsGame() {
-    BoardGame game = new BoardGame("Monopoly", 8, 100.0);
+    BoardGame game = new BoardGame("Monopoly", 8, 100);
     rental.addGame(game);
 
     BoardGame found = rental.findGame("Monopoly");
@@ -41,16 +45,18 @@ public class GameCatalogTest {
     assertEquals("Monopoly", found.getName());
   }
 
+  // проверка - при добавлении null вылетает исключение
   @Test
   void addGame_withNull_throwsException() {
     assertThrows(IllegalArgumentException.class,
         () -> rental.addGame(null));
   }
 
+  // проверка - нельзя добавить игру с дублирующимся названием
   @Test
   void addGame_duplicateName_throwsException() {
-    BoardGame game1 = new BoardGame("Monopoly", 8, 100.0);
-    BoardGame game2 = new BoardGame("Monopoly", 10, 150.0);
+    BoardGame game1 = new BoardGame("Monopoly", 8, 100);
+    BoardGame game2 = new BoardGame("Monopoly", 10, 150);
 
     rental.addGame(game1);
 
@@ -58,6 +64,7 @@ public class GameCatalogTest {
         () -> rental.addGame(game2));
   }
 
+  // проверка - findGame() возвращает null, если игра не найдена
   @Test
   void findGame_nonExistingGame_returnsNull() {
     BoardGame found = rental.findGame("Несуществующая игра");

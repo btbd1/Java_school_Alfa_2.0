@@ -13,14 +13,16 @@ class GameRentalTest {
 
   private GameRental rental;
 
+  // создание нового объекта для теста
   @BeforeEach
   void init() {
     rental = new GameRental();
   }
 
+  // проверка - успешная аренда игры (возраст подходит, игра свободна)
   @Test
   void rentGame_validGameAndAge_returnsTrueAndMarksRented() {
-    BoardGame game = new BoardGame("Monopoly", 8, 100.0);
+    BoardGame game = new BoardGame("Monopoly", 8, 100);
     rental.addGame(game);
 
     boolean result = rental.rentGame("Monopoly", 10);
@@ -29,9 +31,10 @@ class GameRentalTest {
     assertTrue(game.isRented());
   }
 
+  // проверка - нельзя арендовать игру, если ты младше возрастного ограничения
   @Test
   void rentGame_tooYoung_returnsFalse() {
-    BoardGame game = new BoardGame("Monopoly", 8, 100.0);
+    BoardGame game = new BoardGame("Monopoly", 8, 100);
     rental.addGame(game);
 
     boolean result = rental.rentGame("Monopoly", 6);
@@ -40,9 +43,10 @@ class GameRentalTest {
     assertFalse(game.isRented());
   }
 
+  // проверка - уже арендованную игру нельзя арендовать снова
   @Test
   void rentGame_alreadyRented_returnsFalse() {
-    BoardGame game = new BoardGame("Monopoly", 8, 100.0);
+    BoardGame game = new BoardGame("Monopoly", 8, 100);
     rental.addGame(game);
     rental.rentGame("Monopoly", 10);
 
@@ -52,9 +56,10 @@ class GameRentalTest {
     assertTrue(game.isRented());
   }
 
+  // проверка - успешный возврат арендованной игры
   @Test
   void returnGame_rentedGame_returnsTrueAndMarksAvailable() {
-    BoardGame game = new BoardGame("Monopoly", 8, 100.0);
+    BoardGame game = new BoardGame("Monopoly", 8, 100);
     rental.addGame(game);
     rental.rentGame("Monopoly", 10);
 
@@ -64,15 +69,17 @@ class GameRentalTest {
     assertFalse(game.isRented());
   }
 
+  // проверка - возврат несуществующей игры возвращает false
   @Test
   void returnGame_nonExistingGame_returnsFalse() {
     boolean result = rental.returnGame("Несуществующая");
     assertFalse(result);
   }
 
+  // проверка - возврат неарендованной игры возвращает false
   @Test
   void returnGame_notRentedGame_returnsFalse() {
-    BoardGame game = new BoardGame("Monopoly", 8, 100.0);
+    BoardGame game = new BoardGame("Monopoly", 8, 100);
     rental.addGame(game);
 
     boolean result = rental.returnGame("Monopoly");
@@ -81,10 +88,11 @@ class GameRentalTest {
     assertFalse(game.isRented());
   }
 
+  // проверка - reset() делает все игры доступными для аренды
   @Test
   void reset_marksAllGamesAsAvailable() {
-    BoardGame game1 = new BoardGame("Monopoly", 8, 100.0);
-    BoardGame game2 = new BoardGame("Dobble", 6, 50.0);
+    BoardGame game1 = new BoardGame("Monopoly", 8, 100);
+    BoardGame game2 = new BoardGame("Dobble", 6, 50);
     rental.addGame(game1);
     rental.addGame(game2);
     rental.rentGame("Monopoly", 10);
@@ -96,6 +104,14 @@ class GameRentalTest {
     assertFalse(game2.isRented());
   }
 
+  // проверка - игру нельзя арендовать, если ее нет в каталоге
+  @Test
+  void rentGame_nonExistingGame_throwsException() {
+    assertThrows(IllegalArgumentException.class,
+        () -> rental.rentGame("Несуществующая", 10));
+  }
+
+  // проверка - rentGame() работает правильно с разными возрастами
   @ParameterizedTest
   @CsvSource({
       "8, 10, true",
@@ -104,7 +120,7 @@ class GameRentalTest {
       "10, 5, false"
   })
   void rentGame_variousAges_returnsExpected(int minAge, int customerAge, boolean expected) {
-    BoardGame game = new BoardGame("Test", minAge, 100.0);
+    BoardGame game = new BoardGame("Test", minAge, 100);
     rental.addGame(game);
 
     boolean result = rental.rentGame("Test", customerAge);
